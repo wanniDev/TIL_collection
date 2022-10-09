@@ -1,7 +1,6 @@
 package me.designpattern.code.singleton.threadsafe.humanerror;
 
 import static org.assertj.core.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -16,5 +15,14 @@ class PossibleErrorTest {
 		LazyHolderSingleton reflectedInstance = PossibleError.getInstanceWithReflection();
 
 		assertThat(singletonInstance).isNotSameAs(reflectedInstance);
+	}
+
+	@Test
+	@DisplayName("싱글톤 패턴으로 생성된 객체를 직렬화할 경우, 싱글톤을 보장하지 못한다.")
+	void s() {
+		LazyHolderSingleton singletonInstance = LazyHolderSingleton.getInstance();
+		LazyHolderSingleton deserializedInstance = PossibleError.getDeserializedInstance();
+
+		assertThat(singletonInstance).isNotSameAs(deserializedInstance);
 	}
 }

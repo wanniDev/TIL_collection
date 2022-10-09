@@ -1,7 +1,9 @@
 package me.designpattern.code.singleton.threadsafe.safe.lazy;
 
-public class LazyHolderSingleton {
-	private LazyHolderSingleton() {}
+import java.io.Serializable;
+
+public class LazyHolderSingleton implements Serializable {
+	protected LazyHolderSingleton() {}
 
 	public static class LazyHolder {
 		private static final LazyHolderSingleton INSTANCE = new LazyHolderSingleton();
