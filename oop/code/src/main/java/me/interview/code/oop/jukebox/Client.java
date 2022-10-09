@@ -2,10 +2,10 @@ package me.interview.code.oop.jukebox;
 
 public class Client {
   public void init() {
+    DIFactory.initFactory();
+  }
 
-    final JukeBox jukeBox = DIFactory.jukeBox();
-    final Player<?> player = DIFactory.player();
-
-    jukeBox.play();
+  public void start() {
+    DIFactory.jukeBox().play();
   }
 }

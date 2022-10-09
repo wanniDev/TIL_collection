@@ -1,11 +1,17 @@
 package me.interview.code.oop.jukebox;
 
 import java.util.Collection;
+import java.util.Queue;
+import java.util.concurrent.LinkedBlockingQueue;
 
-public class Record {
-  private final Collection<Song> songs;
+public class Record implements Playable {
+  private final Queue<Song> songs;
 
-  public Record(Collection<Song> songs) {
-    this.songs = songs;
+  public Record() {
+    this.songs = new LinkedBlockingQueue<Song>();
+  }
+
+  public void play() {
+
   }
 }
