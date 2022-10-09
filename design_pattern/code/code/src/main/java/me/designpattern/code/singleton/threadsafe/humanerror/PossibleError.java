@@ -10,6 +10,7 @@ import java.io.ObjectOutputStream;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 
+import me.designpattern.code.singleton.threadsafe.safe.eager.SingletonEnum;
 import me.designpattern.code.singleton.threadsafe.safe.lazy.LazyHolderSingleton;
 
 public class PossibleError {
@@ -44,6 +45,20 @@ public class PossibleError {
 			throw new RuntimeException(e);
 		}
 
+		return result;
+	}
+
+	public static SingletonEnum getEnumInstanceWithReflection() {
+
+		SingletonEnum result = null;
+		Constructor<?>[] declaredConstructors = SingletonEnum.class.getDeclaredConstructors();
+		for (Constructor<?> constructor : declaredConstructors) {
+			try {
+				result = (SingletonEnum) constructor.newInstance("INSTANCE");
+			} catch (InstantiationException | InvocationTargetException | IllegalAccessException e) {
+				throw new RuntimeException(e);
+			}
+		}
 		return result;
 	}
 }
