@@ -1,11 +1,12 @@
-package me.interview.code.oop.jukebox;
+package me.code.oop.jukebox;
 
 public class Client {
   public void init() {
     DIFactory.initFactory();
+    start();
   }
 
-  public void start() {
+  private void start() {
     DIFactory.jukeBox().play();
   }
 }

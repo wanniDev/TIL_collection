@@ -1,4 +1,4 @@
-package me.interview.code.oop.jukebox;
+package me.code.oop.jukebox;
 
 public class Main {
   public static void main(String[] args) {

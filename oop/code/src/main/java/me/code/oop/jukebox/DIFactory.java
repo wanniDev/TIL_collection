@@ -1,4 +1,4 @@
-package me.interview.code.oop.jukebox;
+package me.code.oop.jukebox;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;

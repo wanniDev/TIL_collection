@@ -1,4 +1,4 @@
-package me.interview.code.oop.jukebox;
+package me.code.oop.jukebox;
 
 public interface Player<T> {
   void next();
