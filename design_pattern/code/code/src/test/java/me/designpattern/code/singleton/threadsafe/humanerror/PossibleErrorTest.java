@@ -33,4 +33,13 @@ class PossibleErrorTest {
 	void cannotReflectWithEnum() {
 		assertThrows(RuntimeException.class, PossibleError::getEnumInstanceWithReflection);
 	}
+
+	@Test
+	@DisplayName("Enum은 역직렬화한 객체와도 싱글톤을 보장한다.")
+	void isSingletonWithEnum() {
+		SingletonEnum singletonEnum = SingletonEnum.INSTANCE;
+		SingletonEnum deserializedEnumInstance = PossibleError.getDeserializedEnumInstance();
+
+		assertThat(singletonEnum).isSameAs(deserializedEnumInstance);
+	}
 }

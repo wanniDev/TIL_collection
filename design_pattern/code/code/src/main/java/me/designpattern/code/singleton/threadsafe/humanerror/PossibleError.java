@@ -61,4 +61,23 @@ public class PossibleError {
 		}
 		return result;
 	}
+
+	public static SingletonEnum getDeserializedEnumInstance() {
+		SingletonEnum result;
+
+		SingletonEnum source = SingletonEnum.INSTANCE;
+		try (ObjectOutput out = new ObjectOutputStream(new FileOutputStream("singletonEnum.obj"))) {
+			out.writeObject(source);
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
+
+		try (ObjectInput in = new ObjectInputStream(new FileInputStream("singletonEnum.obj"))) {
+			result = (SingletonEnum)in.readObject();
+		} catch (IOException | ClassNotFoundException e) {
+			throw new RuntimeException(e);
+		}
+
+		return result;
+	}
 }
