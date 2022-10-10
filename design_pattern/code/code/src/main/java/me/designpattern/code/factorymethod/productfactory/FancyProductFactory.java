@@ -1,4 +1,4 @@
-package me.designpattern.code.factorymethod;
+package me.designpattern.code.factorymethod.productfactory;
 
 public class FancyProductFactory implements ProductFactory {
 	@Override
