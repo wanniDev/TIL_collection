@@ -1,4 +1,4 @@
-package me.designpattern.code.adapter;
+package me.designpattern.code.adapter.security;
 
 public class LoginHandler {
 
@@ -11,9 +11,9 @@ public class LoginHandler {
 	public String login(String username, String password) {
 		UserDetails userDetails = userDetailsService.loadUser(username);
 		if(userDetails.getPassword().equals(password)) {
-			return userDetails.getUsername;
+			return userDetails.getUsername();
 		} else {
-			throw IllegalArgumentException();
+			throw new IllegalArgumentException();
 		}
 	}
 }
