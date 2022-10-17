@@ -1,6 +1,6 @@
-package me.designpattern.code.adapter;
+package me.designpattern.code.adapter.tutorial;
 
-import me.designpattern.code.adapter.security.UserDetails;
+import me.designpattern.code.adapter.tutorial.security.UserDetails;
 
 public class AccountUserDetails implements UserDetails {
 

@@ -1,4 +1,4 @@
-package me.designpattern.code.adapter;
+package me.designpattern.code.adapter.tutorial;
 
 public class Account {
 	private String name;

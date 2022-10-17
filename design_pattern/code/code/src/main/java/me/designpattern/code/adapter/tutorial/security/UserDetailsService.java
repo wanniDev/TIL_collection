@@ -1,4 +1,4 @@
-package me.designpattern.code.adapter.security;
+package me.designpattern.code.adapter.tutorial.security;
 
 public interface UserDetailsService {
 	UserDetails loadUser(String username);

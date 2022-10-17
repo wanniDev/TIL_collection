@@ -1,7 +1,9 @@
-package me.designpattern.code.adapter;
+package me.designpattern.code.adapter.tutorial;
 
-import me.designpattern.code.adapter.security.LoginHandler;
-import me.designpattern.code.adapter.security.UserDetailsService;
+import me.designpattern.code.adapter.tutorial.AccountService;
+import me.designpattern.code.adapter.tutorial.AccountUserDetailsService;
+import me.designpattern.code.adapter.tutorial.security.LoginHandler;
+import me.designpattern.code.adapter.tutorial.security.UserDetailsService;
 
 public class App {
 	public static void main(String[] args) {
