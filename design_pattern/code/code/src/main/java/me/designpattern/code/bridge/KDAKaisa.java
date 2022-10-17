@@ -1,4 +1,4 @@
 package me.designpattern.code.bridge;
 
-public class KDAKaisa implements Champion {
+public class KDAKaisa {
 }

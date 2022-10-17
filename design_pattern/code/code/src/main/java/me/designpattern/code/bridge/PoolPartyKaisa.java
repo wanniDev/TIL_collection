@@ -1,4 +1,4 @@
 package me.designpattern.code.bridge;
 
-public class PoolPartyKaisa implements Champion {
+public class PoolPartyKaisa {
 }
