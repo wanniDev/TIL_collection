@@ -1,8 +1,5 @@
 package me.designpattern.code.composit;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Client {
 	public static void main(String[] args) {
 		Item doranBlade = new Item("도란검", 400);
@@ -22,7 +19,6 @@ public class Client {
 	}
 
 	private void printPrice(Bag bag) {
-		int sum = bag.getItems().stream().mapToInt(Item::getPrice).sum();
-		System.out.println(sum);
+		System.out.println(bag.getComponents());
 	}
 }
