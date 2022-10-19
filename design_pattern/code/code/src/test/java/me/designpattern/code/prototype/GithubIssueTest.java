@@ -1,10 +1,12 @@
 package me.designpattern.code.prototype;
 
 import static org.assertj.core.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
+import me.designpattern.code.creational.prototype.GithubIssue;
+import me.designpattern.code.creational.prototype.GithubRepository;
 
 class GithubIssueTest {
 	@Test

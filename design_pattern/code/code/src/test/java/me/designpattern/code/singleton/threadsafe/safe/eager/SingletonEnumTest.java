@@ -1,10 +1,11 @@
 package me.designpattern.code.singleton.threadsafe.safe.eager;
 
 import static org.assertj.core.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+
+import me.designpattern.code.creational.singleton.threadsafe.safe.eager.SingletonEnum;
 
 class SingletonEnumTest {
 	@Test

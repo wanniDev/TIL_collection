@@ -6,8 +6,9 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import me.designpattern.code.singleton.threadsafe.safe.eager.SingletonEnum;
-import me.designpattern.code.singleton.threadsafe.safe.lazy.LazyHolderSingleton;
+import me.designpattern.code.creational.singleton.threadsafe.humanerror.PossibleError;
+import me.designpattern.code.creational.singleton.threadsafe.safe.eager.SingletonEnum;
+import me.designpattern.code.creational.singleton.threadsafe.safe.lazy.LazyHolderSingleton;
 
 class PossibleErrorTest {
 	@Test

@@ -1,17 +1,10 @@
-package me.designpattern.code.prototype.example.java;
+package me.designpattern.code.creational.prototype.example.java;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-
-import me.designpattern.code.creational.prototype.example.java.Student;
-
-class StudentTest {
-	@Test
-	@DisplayName("Array")
-	void collectionPrototype() {
+public class Main {
+	public static void main(String[] args) {
 		Student student = new Student("name1");
 		Student student1 = new Student("name2");
 		List<Student> students = new ArrayList<>();

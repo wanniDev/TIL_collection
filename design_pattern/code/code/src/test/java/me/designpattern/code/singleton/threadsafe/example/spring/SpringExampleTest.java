@@ -1,11 +1,13 @@
 package me.designpattern.code.singleton.threadsafe.example.spring;
 
 import static org.assertj.core.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import me.designpattern.code.creational.singleton.threadsafe.example.spring.SpringExample;
+import me.designpattern.code.creational.singleton.threadsafe.example.spring.TestBean;
 
 @SpringBootTest
 class SpringExampleTest {
