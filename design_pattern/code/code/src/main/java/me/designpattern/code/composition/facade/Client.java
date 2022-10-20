@@ -7,7 +7,7 @@ public class Client {
 		emailMessage.setTo("someone@testmail.com");
 		emailMessage.setSubject("제목");
 		emailMessage.setText("내용");
-		
+
 		EmailSettings emailSettings = new EmailSettings();
 		emailSettings.setHost("127.0.0.1");
 		EmailSender emailSender = new EmailSender(emailSettings);
