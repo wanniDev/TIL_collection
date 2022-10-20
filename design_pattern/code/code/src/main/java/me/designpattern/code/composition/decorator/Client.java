@@ -12,7 +12,7 @@ public class Client {
 	}
 
 	public static void main(String[] args) {
-		Client client = new Client();
+		Client client = new Client(new DefaultCommentService());
 		client.writeComment("릭앤모티 봤냐?");
 		client.writeComment("고양이 만세");
 	}
