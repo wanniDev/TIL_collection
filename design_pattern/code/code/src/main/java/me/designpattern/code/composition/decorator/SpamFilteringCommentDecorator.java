@@ -8,8 +8,10 @@ public class SpamFilteringCommentDecorator extends CommentDecorator {
 
 	@Override
 	public void addComment(String comment) {
+		StringBuilder sb = new StringBuilder(comment);
+		sb.insert(0, "add filter spam");
 		if (isNotSpam(comment))
-			super.addComment(comment);
+			super.addComment(sb.toString());
 	}
 
 	private boolean isNotSpam(String comment) {

@@ -12,7 +12,11 @@ public class Client {
 	}
 
 	public static void main(String[] args) {
-		Client client = new Client(new DefaultCommentService());
+		CommentService defaultCommentService = new DefaultCommentService();
+		defaultCommentService = new TrimmingCommentDecorator(defaultCommentService);
+		defaultCommentService = new SpamFilteringCommentDecorator(defaultCommentService);
+		Client client = new Client(defaultCommentService);
+
 		client.writeComment("릭앤모티 봤냐?");
 		client.writeComment("고양이 만세");
 	}
