@@ -3,45 +3,23 @@ package me.designpattern.code.composition.flyweight;
 public class Character {
 	private char value;
 	private String color;
-	private String fontFamily;
-	private int fontSize;
+	private Font font;
 
-	public Character(char value, String color, String fontFamily, int fontSize) {
+	public Character(char value, String color, Font font) {
 		this.value = value;
 		this.color = color;
-		this.fontFamily = fontFamily;
-		this.fontSize = fontSize;
+		this.font = font;
 	}
 
 	public char getValue() {
 		return value;
 	}
 
-	public void setValue(char value) {
-		this.value = value;
-	}
-
 	public String getColor() {
 		return color;
 	}
 
-	public void setColor(String color) {
-		this.color = color;
-	}
-
-	public String getFontFamily() {
-		return fontFamily;
-	}
-
-	public void setFontFamily(String fontFamily) {
-		this.fontFamily = fontFamily;
-	}
-
-	public int getFontSize() {
-		return fontSize;
-	}
-
-	public void setFontSize(int fontSize) {
-		this.fontSize = fontSize;
+	public Font getFont() {
+		return font;
 	}
 }
