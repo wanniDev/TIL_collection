@@ -1,8 +1,15 @@
 package me.designpattern.code.behavior.responsibilitychain;
 
-public class RequestHandler {
+public abstract class RequestHandler {
+
+	private RequestHandler nextHandler;
+
+	public RequestHandler(RequestHandler nextHandler) {
+		this.nextHandler = nextHandler;
+	}
 
 	public void handle(Request request) {
-		System.out.println(request.getBody());
+		if (nextHandler != null)
+			nextHandler.handle(request);
 	}
 }

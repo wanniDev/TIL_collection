@@ -1,9 +1,20 @@
 package me.designpattern.code.behavior.responsibilitychain;
 
 public class Client {
-	public static void main(String[] args) {
+	private final RequestHandler requestHandler;
+
+	public Client(RequestHandler requestHandler) {
+		this.requestHandler = requestHandler;
+	}
+
+	public void doWork() {
 		Request request = new Request("request payload");
-		RequestHandler requestHandler = new RequestHandler();
 		requestHandler.handle(request);
+	}
+
+	public static void main(String[] args) {
+		RequestHandler chain = new AuthRequestHandler(new LoggingRequestHandler(new PrintRequestHandler(null)));
+		Client client = new Client(chain);
+		client.doWork();
 	}
 }

@@ -1,13 +1,13 @@
 package me.designpattern.code.behavior.responsibilitychain;
 
-public class LoggingRequestHandler extends RequestHandler {
-	public LoggingRequestHandler(RequestHandler nextHandler) {
+public class PrintRequestHandler extends RequestHandler {
+	public PrintRequestHandler(RequestHandler nextHandler) {
 		super(nextHandler);
 	}
 
 	@Override
 	public void handle(Request request) {
-		System.out.println("로깅");
+		System.out.println(request.getBody());
 		super.handle(request);
 	}
 }
