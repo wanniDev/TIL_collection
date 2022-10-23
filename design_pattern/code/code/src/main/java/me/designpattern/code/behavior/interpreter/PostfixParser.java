@@ -15,12 +15,12 @@ public class PostfixParser {
 	private static PostfixExpression getExpression(char c, Stack<PostfixExpression> stack) {
 		switch (c) {
 			case '+' -> {
-				return new PlusExpression(stack.pop(), stack.pop());
+				return PostfixExpression.plus(stack.pop(), stack.pop());
 			}
 			case '-' -> {
 				PostfixExpression right = stack.pop();
 				PostfixExpression left = stack.pop();
-				return new MinusExpression(left, right);
+				return PostfixExpression.minus(left, right);
 			}
 			default -> {
 				return new VariableExpression(c);
