@@ -1,13 +1,16 @@
 package me.designpattern.code.behavior.command;
 
 public class Button {
-	private final Light light;
+	private final Command command;
 
-	public Button(Light light) {
-		this.light = light;
+	public Button(Command command) {
+		this.command = command;
 	}
 
 	public void press() {
-		light.on();
+		command.execute();
+	}
+
+	public static void main(String[] args) {
 	}
 }
