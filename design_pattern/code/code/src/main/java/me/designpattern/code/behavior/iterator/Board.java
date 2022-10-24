@@ -1,5 +1,6 @@
 package me.designpattern.code.behavior.iterator;
 
+import java.util.Iterator;
 import java.util.List;
 
 public class Board {
@@ -11,5 +12,9 @@ public class Board {
 
 	public void addPost(String content) {
 		this.posts.add(new Post(content));
+	}
+
+	public Iterator<Post> getRecentPostIterator() {
+		return new RecentPostIterator(this);
 	}
 }

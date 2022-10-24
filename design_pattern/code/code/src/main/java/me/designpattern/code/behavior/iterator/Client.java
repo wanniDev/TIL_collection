@@ -1,6 +1,7 @@
 package me.designpattern.code.behavior.iterator;
 
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 
@@ -13,12 +14,12 @@ public class Client {
 		// TODO 들어간 순서대로 순회하기
 		List<Post> posts = board.getPosts();
 		Iterator<Post> iterator = posts.iterator();
-		
-		for (Post post : posts) {
-			System.out.println(post.getTitle());
-		}
+		while(iterator.hasNext())
+			System.out.println(iterator.next().getTitle());
 
 		// TODO 가장 최신 글 먼저 순회하기
-		Collections.sort(posts, (o1, o2) -> );
+		Iterator<Post> recentPostIterator = board.getRecentPostIterator();
+		while (recentPostIterator.hasNext())
+			System.out.println(recentPostIterator.next().getTitle());
 	}
 }
