@@ -1,17 +1,26 @@
 package me.designpattern.code.behavior.mediator;
 
+import java.time.LocalDateTime;
+
 public class Guest {
 
-    private Restaurant restaurant = new Restaurant();
+    private Integer id;
 
-    private CleaningService cleaningService = new CleaningService();
+    private final FrontDesk frontDesk = new FrontDesk();
 
-    public void dinner() {
-        restaurant.dinner(this);
+    public void getTowers(int numberOfTowers) {
+        this.frontDesk.getTowers(this, numberOfTowers);
     }
 
-    public void getTower(int numberOfTower) {
-        cleaningService.getTower(this, numberOfTower);
+    private void dinner(LocalDateTime dateTime) {
+        this.frontDesk.dinner(this, dateTime);
     }
 
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 }

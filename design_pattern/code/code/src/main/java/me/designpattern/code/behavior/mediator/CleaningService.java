@@ -1,15 +1,11 @@
 package me.designpattern.code.behavior.mediator;
 
 public class CleaningService {
-    public void clean(Gym gym) {
-        System.out.println("clean " + gym);
-    }
 
-    public void getTower(Guest guest, int numberOfTower) {
-        System.out.println(numberOfTower + " towers to " + guest);
-    }
+    private final FrontDesk frontDesk = new FrontDesk();
 
-    public void clean(Restaurant restaurant) {
-        System.out.println("clean " + restaurant);
+    public void getTowers(Integer guestId, int numberOfTowers) {
+        String roomNumber = this.frontDesk.getRoomNumberFor(guestId);
+        System.out.println("provide " + numberOfTowers + " to " + roomNumber);
     }
 }
