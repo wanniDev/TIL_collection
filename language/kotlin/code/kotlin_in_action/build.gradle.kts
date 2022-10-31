@@ -13,6 +13,8 @@ repositories {
 
 dependencies {
     testImplementation(kotlin("test"))
+    // https://mvnrepository.com/artifact/org.jetbrains.kotlinx/kotlinx-html-jvm
+    implementation("org.jetbrains.kotlinx:kotlinx-html-jvm:0.7.5")
 }
 
 tasks.test {
