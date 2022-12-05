@@ -1,17 +1,14 @@
 package practice;
 
 public class DtoSpec {
-    private String finalVal;
-    private int finalInt;
+    private final String finalVal;
+    private final int finalInt;
 
     private String varStringGetterSetter;
     private int varIntGetterSetter;
 
     private String varStringGetter;
     private int vatIntGetter;
-
-    private DtoSpec() {
-    }
 
     public DtoSpec(String finalVal, int finalInt) {
         this.finalVal = finalVal;
