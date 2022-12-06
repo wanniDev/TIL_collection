@@ -1,0 +1,111 @@
+# 냄새 2. 중복 코드
+
+- 중복 코드의 단점
+  - 비슷한지, 완전히 동일한 코드인지 주의 깊게 봐야한다.
+  - 코드를 변경할 때, 동일한 모든 곳의 코드를 변경해야 한다.
+- 사용할 수 있는 리팩토링 기술
+  - 동일한 코드를 여러 메소드에서 사용하는 경우, 함수 추출하기 (Extract Function)
+  - 코드가 비슷하게 생겪지만 완전히 같지는 않은 경우, 코드 분리하기 (Slide Statements)
+  - 여러 하위 클래스에 동일한 코드가 있다면, 메소드 올리기 (Pull Up Method)
+
+> Sample code
+
+```java
+public class StudyDashboard {
+
+    private void printParticipants(int eventId) throws IOException {
+        // Get github issue to check homework
+        GitHub gitHub = GitHub.connect();
+        GHRepository repository = gitHub.getRepository("whiteship/live-study");
+        GHIssue issue = repository.getIssue(eventId);
+
+        // Get participants
+        Set<String> participants = new HashSet<>();
+        issue.getComments().forEach(c -> participants.add(c.getUserName()));
+
+        // Print participants
+        participants.forEach(System.out::println);
+    }
+
+    private void printReviewers() throws IOException {
+        // Get github issue to check homework
+        GitHub gitHub = GitHub.connect();
+        GHRepository repository = gitHub.getRepository("whiteship/live-study");
+        GHIssue issue = repository.getIssue(30);
+
+        // Get reviewers
+        Set<String> reviewers = new HashSet<>();
+        issue.getComments().forEach(c -> reviewers.add(c.getUserName()));
+
+        // Print reviewers
+        reviewers.forEach(System.out::println);
+    }
+
+    public static void main(String[] args) throws IOException {
+        StudyDashboard studyDashboard = new StudyDashboard();
+        studyDashboard.printReviewers();
+        studyDashboard.printParticipants(15);
+
+    }
+
+}
+```
+
+## Refactoring 4. 함수 추출하기
+
+- "의도"와 "구현" 분리하기
+- 무슨 일을 하는 코드인지 알아내려고 노력해야 하는 코드(구현에 해당하는 코드로 함수 추출이 필요할 수 있다)라면 해당 코드를 함수로 분리하고 함수 이름으로 "무슨 일을 하는지" 표현할 수 있다.
+- 한줄 짜리 메소드도 괜찮은가?
+- 거대한 함수 안에 들어있는 주석은 추출한 함수를 찾는데 있어서 좋은 단서가 될 수 있다.
+
+```java
+public class StudyDashboard {
+
+    private void printParticipants(int eventId) throws IOException {
+      	// 주석 자체가 분리할 수 있다는 일종의 단서가 될 수 있다.
+        // Get github issue to check homework
+        GitHub gitHub = getGhIssue(eventId);
+
+        // Get participants
+        Set<String> participants = getUsernames(issue);
+
+        // Print participants
+        print(participants);
+    }
+
+   private void printReviewers() throws IOException {
+				// 함수 추출이 잘 되면, 코드를 분석하지 않아도 구현 내용을 알 수 있기 때문에, 주석이 필요 없어진다.
+        GitHub gitHub = getGhIssue(eventId);
+
+        Set<String> reviewers = getUsernames(issue);
+
+        print(participants);
+   }
+  
+  private static void print(Set<String> participants) {
+    	participants.forEach(System.out::println);
+  }
+  
+  private static Set<String> getUsernames(GHIssue issue) throws IOException {
+    Set<String> participants = new HashSet<>();
+    issue.getComments().forEach(c -> participants.add(c.getUserName()));
+    return participants;
+  }
+  
+  private static GHIssue getGhIssue(int eventId) throws IOException {
+    GitHub gitHub = GitHub.connect();
+    GHRepository repository = gitHub.getRepository("whiteship/live-study");
+    GHIssue issue = repository.getIssue(eventId);
+    return issue;
+  }
+
+  public static void main(String[] args) throws IOException {
+    StudyDashboard studyDashboard = new StudyDashboard();
+    studyDashboard.printReviewers();
+    studyDashboard.printParticipants(15);
+
+  }
+
+}
+```
+
