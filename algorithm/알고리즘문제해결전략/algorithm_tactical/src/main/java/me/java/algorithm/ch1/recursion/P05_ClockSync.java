@@ -41,15 +41,22 @@ public class P05_ClockSync {
         }
     }
 
+    /**
+     *
+     * @param clocks    3, 6, 9, 12시 중 하나로 맞춰진 시계들을 나열한 리스트
+     * @param switchNum 누르고자 하는 스위치 번호
+     * @return          모든 시계가 12시로 정렬된 상태이면 0, 아니면 9999 리턴
+     */
     private int solve(List<Integer> clocks, int switchNum) {
         if (switchNum == linked.length)
-            return isAligned(clocks) ? 0 : 9999;
+            return isAligned(clocks) ? 0 : 9999; // 정수 오버플로우 방지
 
         int result = Integer.MAX_VALUE;
         for (int cnt = 0; cnt < 4; cnt++) { // 스위치를 0번 누르는 경우부터 세 번 누르는 경우까지
             result = Math.min(result, cnt + solve(clocks, switchNum + 1));
             push(clocks, switchNum);
         }
+        // 여기서 버튼들을 4번 누르기 때문에, 시계들의 시간은 원상태로 돌아온다.
         return result;
     }
 
