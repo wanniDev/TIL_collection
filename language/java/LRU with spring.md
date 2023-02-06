@@ -1,4 +1,12 @@
-# LRU with Spring
+# LRU in Spring
+
+## LRU 캐시의 의미
+
+## LRU 매커니즘
+
+## Example code
+
+ lru 캐시 알고리즘은 보통, cpu의 cache hit ratio를 높이기 위해 사용되지만, 애플리케이션 코드에서도 많이 활용된다. 네트워크 통신 자치를 줄이거나, 데이터베이스와의 통신을 최대한 줄여서 얻는 성능 향상을 기대해볼 수 있기 때문이다. (정확히는 응답시간을 줄인다.)
 
 ```java
 package cache;
@@ -109,5 +117,8 @@ public class ConcurrentLRUCache<K, V> {
 }
 ```
 
+## 코드 분석
 
-
+- `V get(K key)`
+- `boolean remove(K key)`
+- `void clear()`
