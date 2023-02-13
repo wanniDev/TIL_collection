@@ -67,34 +67,37 @@ public class P03_Karatsuba_ {
     }
     // 두 긴 정수의 곱을 반환합니다.
     public static ArrayList<Integer> karatsuba(final ArrayList<Integer> a, final ArrayList<Integer> b) {
-        int an = a.size(); int bn = b.size();
-        // a가 b보다 짧을 경우 둘을 바꾼다.
-        if (an < bn) return karatsuba(b, a);
-        // 기저 사례: a나 b가 비어 있는 경우
-        if (an == 0 || bn == 0) return new ArrayList<>();
-        // 기저 사례: a가 비교적 짧은 경우 O(n^2) 곱셈으로 변경한다.
-        if (an <= 50) return multiply(a, b);
-        int half = an / 2;
-        // a와 b를 밑에서 half 자리와 나머지로 분리한다.
-        ArrayList<Integer> a0 = subList(a,0, half);
-        ArrayList<Integer> a1 = subList(a, half, a.size());
-        ArrayList<Integer> b0 = subList(b, 0, Math.min(b.size(), half));
-        ArrayList<Integer> b1 = subList(b, Math.min(b.size(), half), b.size());
+        int aSize = a.size();
+        int bSize = b.size();
+        if (aSize < bSize)
+            return karatsuba(b, a);
+        if (aSize < 50)
+            return multiply(a, b);
+
+        int half = aSize / 2;
+        // a = a1 * 10^half + a0
+        ArrayList<Integer> a0 = subList(a, 0, half);
+        ArrayList<Integer> a1 = subList(a, half, aSize);
+        int bHalf = Math.min(bSize, half);
+        ArrayList<Integer> b0 = subList(b, 0, bHalf);
+        ArrayList<Integer> b1 = subList(b, bHalf, bSize);
+
         // z2 = a1 * b1
         ArrayList<Integer> z2 = karatsuba(a1, b1);
         // z0 = a0 * b0
         ArrayList<Integer> z0 = karatsuba(a0, b0);
-        // a0 = a0 + a1; b0 = b0 + b1
-        addTo(a0, a1, 0); addTo(b0, b1, 0);
-        // z1 = (a0 * b0) - z0 - z2;
+        // z1 = (a0 + a1)(b0 + b1) - z2 - z0
+        addTo(a0, a1, 0);
+        addTo(b0, b1, 0);
         ArrayList<Integer> z1 = karatsuba(a0, b0);
-        subFrom(z1, z0);
         subFrom(z1, z2);
-        // result = z0 + z1 * 10^half + z2 * 10^(half*2)
+        subFrom(z1, z0);
+
+        // a*b = z2 * 10^(half + half) + z1 * 10^half + z0
         ArrayList<Integer> result = new ArrayList<>();
-        addTo(result, z0, 0);
-        addTo(result, z1, half);
         addTo(result, z2, half + half);
+        addTo(result, z1, half);
+        addTo(result, z0, 0);
         return result;
     }
 
