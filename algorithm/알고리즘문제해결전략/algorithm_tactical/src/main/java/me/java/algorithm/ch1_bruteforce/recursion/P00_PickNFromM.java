@@ -4,15 +4,15 @@ import java.util.*;
 
 public class P00_PickNFromM {
 
-    static List<List<Integer>> list = new ArrayList<>();
+    static List<List<Integer>> result = new ArrayList<>();
 
     public static void main(String[] args) {
-        LinkedList<Integer> result = new LinkedList<>();
+        LinkedList<Integer> pickups = new LinkedList<>();
         int len = 10;
         int pick = 4;
-        pick(len, result, pick);
+        pick(len, pickups, pick);
         System.out.println("------");
-        System.out.println(list);
+        System.out.println(result);
     }
 
     /*
@@ -22,13 +22,14 @@ public class P00_PickNFromM {
      */
     private static void pick(int len, LinkedList<Integer> pickUps, int pick) {
         if (pick == 0) {
-            System.out.println(pickUps + ", size : " + pickUps.size());
-            ArrayList<Integer> integers = new ArrayList<>(pickUps);
-            list.add(integers);
+            List<Integer> combination = new ArrayList<>(pickUps);
+            System.out.println(combination);
+            result.add(combination);
             return;
         }
-        int min = pickUps.isEmpty() ? 0 : pickUps.peekLast() + 1;
-        for (int i = min; i < len; i++) {
+
+        int lastComb = pickUps.isEmpty() ? 0 : pickUps.peekLast() + 1;
+        for (int i = lastComb; i < len; i++) {
             pickUps.offer(i);
             pick(len, pickUps, pick - 1);
             pickUps.pollLast();
