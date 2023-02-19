@@ -32,10 +32,10 @@ public class P01_Boggle {
     }
 
     private static boolean solution(String word) {
-        for (int i = 0; i < rowLen; i++) {
-            for (int j = 0; j < colLen; j++) {
-                // 찾고자 하는 단어의 첫번째 키워드를 찾는다.
-                if (hasWord(i, j, word))
+        // 'board' 를 순회하여, 찾고자 하는 단어의 첫번째 키워드를 찾는다.
+        for (int row = 0; row < rowLen; row++) {
+            for (int col = 0; col < colLen; col++) {
+                if (hasWord(row, col, word))
                     return true;
             }
         }
@@ -52,11 +52,10 @@ public class P01_Boggle {
         // 확인하고자하는 문자의 길이가 1개가 남은 시점에서 문자가 답과 일치하는가?
         if (word.length() == 1)
             return true;
-
         // 사방팔방으로 탐색해본 결과 찾고자 하는 문자가 포함되는가?
-        for (int[] dirs : direction) {
-            int nextRow = row + dirs[0];
-            int nextCol = col + dirs[1];
+        for (int[] dir : direction) {
+            int nextRow = row + dir[0];
+            int nextCol = col + dir[1];
             if (hasWord(nextRow, nextCol, word.substring(1)))
                 return true;
         }
