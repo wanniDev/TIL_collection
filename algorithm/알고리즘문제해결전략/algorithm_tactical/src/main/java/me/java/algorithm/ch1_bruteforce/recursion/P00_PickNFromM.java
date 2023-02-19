@@ -12,7 +12,9 @@ public class P00_PickNFromM {
         int pick = 4;
         pick(len, pickups, pick);
         System.out.println("------");
-        System.out.println(result);
+        for (List<Integer> comb : result) {
+            System.out.println(comb);
+        }
     }
 
     /*
@@ -22,9 +24,8 @@ public class P00_PickNFromM {
      */
     private static void pick(int len, LinkedList<Integer> pickUps, int pick) {
         if (pick == 0) {
-            List<Integer> combination = new ArrayList<>(pickUps);
-            System.out.println(combination);
-            result.add(combination);
+            List<Integer> comb = new ArrayList<>(pickUps);
+            result.add(comb);
             return;
         }
 
