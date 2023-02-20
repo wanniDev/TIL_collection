@@ -30,6 +30,7 @@ public class P03_Gameboard {
      * @return 보드판을 채울 수 있는 경우의 수
      */
     private int solution(int[][] board) {
+        // board를 순회하면서, 빈 공간(0)을 찾으면 해당 좌표로 초기화한다.
         int row = -1;
         int col = -1;
         for (int i = 0; i < board.length; i++) {
@@ -44,10 +45,13 @@ public class P03_Gameboard {
                 break;
         }
 
+        // 블록이 다 채워진 경우, 1을 리턴해서 완성된 경우의 수 하나를 더한다.
         if (row == -1)
             return 1;
+
+        // 보드에 채울 블록의 유형만큼 블록을 채웠다가 놓아준다.
         int ret = 0;
-        for (int type = 0; type < 4; type++) {
+        for (int type = 0; type < coverType.length; type++) {
             if (set(board, row, col, type, 1))
                 ret += solution(board);
             set(board, row, col, type, -1);
