@@ -21,11 +21,11 @@ public class P00_FastSum {
         long l1 = System.currentTimeMillis();
         System.out.println(new P00_FastSum().fastSum(Integer.MAX_VALUE));
         long l2 = System.currentTimeMillis();
-        System.out.println(l2 - l1);
+        System.out.printf("fastSum: %dms\n", l2 - l1);
 
         long l3 = System.currentTimeMillis();
         System.out.println(new P00_FastSum().slowSum(Integer.MAX_VALUE));
         long l4 = System.currentTimeMillis();
-        System.out.println(l4 - l3);
+        System.out.printf("slowSum: %dms\n", l4 - l3);
     }
 }
