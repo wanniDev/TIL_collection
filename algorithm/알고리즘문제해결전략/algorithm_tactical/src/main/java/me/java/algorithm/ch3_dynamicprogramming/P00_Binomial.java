@@ -18,11 +18,13 @@ public class P00_Binomial {
 
     int[][] cache = new int[30][30];
     int binoMemoization(int n, int r) {
-        // basecase
+        // base case
         if (r == 0 || n == r) return 1;
         // -1이 아니라면 한 번 계산했던 값이니 곧장 반환
         if (cache[n][r] != -1)
             return cache[n][r];
         return cache[n][r] = binoMemoization(n - 1, r - 1) + binoMemoization(n - 1, r);
     }
+
+    int[][] cache2 = new int[2500][2500];
 }
