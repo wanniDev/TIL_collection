@@ -28,4 +28,10 @@ public class P04_Fan {
         }
         return sum;
     }
+
+    private ArrayList<Integer> karatsuba(ArrayList<Integer> a, ArrayList<Integer> b) {
+        // TODO 나중에 풀어보기
+        return null;
+    }
+
 }
