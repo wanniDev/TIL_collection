@@ -10,8 +10,70 @@ public class P02_Fence {
 
     public static void main(String[] args) {
 
-        System.out.println(solve(0, fences.length - 1));
+        System.out.println(solve2(0, fences.length - 1));
     }
+
+    private static int solve3(int left, int right) {
+        if (left == right)
+            return fences[left];
+
+        int mid = left + (right - left) / 2;
+
+        int ret = Math.max(solve3(left, mid), solve3(mid + 1, right));
+
+        int mLeft = mid;
+        int mRight = mid + 1;
+        int height = Math.min(mLeft, mRight);
+        ret = Math.max(ret, height * 2);
+
+        while (left < mLeft || mRight < right) {
+            if (mRight < right && (mLeft == left || fences[mLeft - 1] < fences[mRight + 1])) {
+                mRight++;
+                height = Math.min(height, fences[mRight]);
+            } else {
+                mLeft--;
+                height = Math.min(height, fences[mLeft]);
+            }
+            ret = Math.max(ret, height * (mRight - mLeft + 1));
+        }
+        return ret;
+    }
+
+    private static int solve2(int left, int right) {
+        // base case
+        if (left == right)
+            return fences[left];
+
+        int mid = left + (right - left) / 2;
+
+        int ret = Math.max(solve2(left, mid), solve2(mid + 1, right));
+
+        int low = mid;
+        int high = mid + 1;
+        int height = Math.min(fences[low], fences[high]);
+        ret = Math.max(ret, height * 2);
+
+        while (left < low || right > high) {
+            if (high < right && (low == left || fences[low - 1] < fences[high + 1])) {
+                high++;
+                height = Math.min(height, fences[high]);
+            } else {
+                low--;
+                height = Math.min(height, fences[low]);
+            }
+            ret = Math.max(ret, height * (high - low + 1));
+        }
+        return ret;
+    }
+
+
+
+
+
+
+
+
+
 
     private static int solve(int left, int right) {
         if (left == right)
