@@ -79,6 +79,21 @@ fun getResult(): Result<String> {
 
 sealed class 와 when을 활용하고, sealed class의 항목이 확장됨에 따라 when 구문의 코드를 변형하는 것은, 분명 OCP의 원칙을 위반하는 것은 맞습니다.(아닐수도 있구요.) 그러나, 이러한 스타일의 코드를 씀으로서 when 구문에 추가해야할 조건 분기문이 누락되었는지를 컴파일 타임에 확인하고 바로 적용할 수 있는 것은 개발자의 시간 리소스를 절약하여 **유지보수의 효율을 높이는 것**이라 할 수 있습니다. 따라서, sealed class와 when을 같이 사용하는 것은 분명 OCP를 위반하지만 OCP와 같은 SOLID가 추구하는 가치관에는 부합하다 라고 의견을 내고 싶네요!
 
+## EXTRA
+
+> 
+> 추가로 결제 도메인에 대한 관심이 커져, 외부 활동으로 우연히 알게된 프론트엔드 개발자분들과 협업을 하며, 사이드 프로젝트를 진행하고 있습니다.
+> 아직 부족하지만 많은 관심 부탁드리겠습니다. :)
+> \- https://github.com/payments-laboratory/payments-lab-api
+
+ 
+
+**출처**
+
+**- https://martinfowler.com/bliki/TellDontAsk.html**
+
+
+
 ### 출처
 
 - https://tourspace.tistory.com/467
