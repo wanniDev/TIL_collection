@@ -4,9 +4,9 @@ import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class RandomizedSet {
-    private Map<Integer, Integer> elementToIdx;
-    private List<Integer> list;
-    private Random rand;
+    private final Map<Integer, Integer> elementToIdx;
+    private final List<Integer> list;
+    private final Random rand;
 
     public RandomizedSet() {
         this.elementToIdx = new HashMap<>();
