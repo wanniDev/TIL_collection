@@ -1,15 +1,13 @@
 package me.java.pairprogramming;
 
-import java.util.List;
-
 public class Picker {
     private final RandomizedSet randomizedSet;
 
     private Picker() {
-        this.randomizedSet = new RandomizedSet();
+        this.randomizedSet = LazyHolder.instance;
     }
 
-    public static Picker newInstance() {
+    public static Picker instance() {
         return new Picker();
     }
 
@@ -22,5 +20,9 @@ public class Picker {
         }
 
         return randomizedSet.getRandom();
+    }
+
+    private static class LazyHolder {
+        private static final RandomizedSet instance = new RandomizedSet();
     }
 }
