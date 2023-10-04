@@ -38,4 +38,24 @@
 | https://api.security.io                 | X         | 호스트가 다름                                             |
 | https://security.io:8000                | ?         | 브라우저의 구현에 따라 다름, explorer는 포트자체를 무시함 |
 
-### CORS 해결
+### CORS 해결: 서버에서 Access-Control-Allow-* 세팅
+
+- **Access-Control-Allow-Origin **- 헤더에 작성된 출처만 브라우저가 리소스를 접근할 수 있도록 허용한다.
+  - `*`, https://security.io
+- **Access-Control-Allow-Methods** - preflight request 에 대한 응답으로 실제 요청 중에 사용할 수 있는 헤더 필드 이름을 나타낸다.
+  - 기본값은 GET, POST, HEAD, OPTIONS, `*`
+- **Access-Control-Allow-Credentials **- 실제 요청에 쿠키나 인증 등의 사용자 자격 증명이 포함될 수 있음을 나타낸다. Client의 `credentials:include` 일경우 true 필수
+- **Access-Control-Max-Age **- preflight 요청 결과를 캐시 할 수 있는 시간을 나타내는 것으로 해당 시간동안은 preflight 요청을 다시 하지 않게 된다.
+
+## CorsConfigurer
+
+- Spring Security 필터 체인에 CorsFilter를 추가합니다.
+- corsFilter 라는 이름의 Bean이 제공되면 해당 CorsFilter가 사용됩니다.
+- corsFilter 라는 이름의 Bean이 없고 CorsConfigurationSource 빈이 정의된 경우 해당 CorsConfiguration이 사용된다.
+- CorsConfigurationScource 빈이 정의되어 있지 않은 경우 Spring MVC가 클래스 경로에 있으면 HandlerMappingIntrospector가 사용된다.
+
+## CorsFilter
+
+- CORS 예비 요청을 처리하고 CORS 단순 및 본 요청을 가로채고, 제공된 CorsConfigurationSource를 통해 일치된 정책에 따라 CORS 응답 헤더와 같은 응답을 업데이트하기 위한 필터이다.
+- Spring MVC Java 구성과 Spring MVC XML 네임스페이스에서 CORS를 구성하는 대안이라 볼 수 있다.
+- 스프링 웹에 의존하는 응용 프로그램이나 `java.servlet`에서 CORS 검사를 수행해야 하는 보안 제약 조건에 유용한 필터이다.
