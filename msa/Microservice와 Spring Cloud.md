@@ -83,3 +83,26 @@
 
 - Cloud Native Application 기반의 MSA에 활용되는 많은 기술들을 지원해주는 pivotal 공식 라이브러리입니다.
 - 버전에 따라 지원하는 부트 버전이 상이합니다.
+
+## Microservice의 특징
+
+1. Challenges
+2. Small Well Chosen Edeployable Units
+3. Bounded Context
+4. RESTful
+5. Configuration Management
+6. Cloud Enabled
+7. Dynamic Scale Up And Scale Down
+8. CI/CD
+9. Visibility
+
+## 전부 마이크로서비스화 할 필요는 없습니다.
+
+아래 요소들을 먼저 고려해봅시다.
+
+1. Multiple Rates of Change
+2. Independent Life Cycles
+3. Independent Scalability
+4. Isolated Failure
+5. Simplify Interactions with External Dependencies
+6. Polyglot Technology
