@@ -8,11 +8,11 @@ https://jojoldu.tistory.com/418
 
 ## Redis의 특징 살펴보기
 
-- 실시간 응답 : 레디스는 인메모리 데이터베이스로서, RDBMS 보다 속도가 훨씬 빠릅니다.
-- 단순성 : 다양한 자료구조를 지원하며, 따라서 임피던스 불일치 해소가 가능합니다.
-- 고가용성 : 복제가 쉽습니다. 장애 탐지 후 fail-over가 가능합니다.
-- 확장성 : 클러스터링이 쉽습니다.
-- 클라우드 네이티브/멀티 클라우드 : 레디스는 멀티 클라우드에 특화된 소프트웨어 입니다.
+- **실시간 응답 :** 레디스는 인메모리 데이터베이스로서, RDBMS 보다 속도가 훨씬 빠릅니다.
+- **단순성 :** 다양한 자료구조를 지원하며, 따라서 임피던스 불일치 해소가 가능합니다.
+- **고가용성 :** 복제가 쉽습니다. 장애 탐지 후 fail-over가 가능합니다.
+- **확장성 :** 클러스터링이 쉽습니다.
+- **클라우드 네이티브/멀티 클라우드 :** 레디스는 멀티 클라우드에 특화된 소프트웨어 입니다.
 
 ## Redis의 활용 범위
 
@@ -65,4 +65,100 @@ Serializer를 따로 구성하지 않아도 스프링에서 조회할 땐 정상
 
 - setKey(Value)Serializer가 있어야 String, list, set, sorted set을 직렬화 할 수 있습니다. 
 - setHashKey(Value)Serializer가 있어야 hash도 직렬화 할 수 있습니다.
+
+따라서, Serializer를 별도로 구성해야, redis-cli 에서도 원할한 작업이 가능합니다.
+
+## Redis 기본 함수 구성하기
+
+spring data redis는 레디스 명령어를 좀 더 직관적으로 전송해주기 위해 `RedisTemplate`을 제공해줍니다. `RedisTemplate`는 redis-cli 에서 사용되는 명령어들을 좀 더 직관적으로 수행할 수 있는 함수들을 제공해줍니다.
+아래 예시는 redis에서 가장 보편적으로 많이 사용되는 string, set, sorted set, list 의 기본적인 명령어들을 수행하는 코드 위주로 작성했습니다.
+
+```java
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.data.redis.core.*;
+import org.springframework.stereotype.Component;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+@Component
+public class RedisOperationWrapper {
+
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
+    private final RedisTemplate<String, String> redisTemplate;
+
+    public RedisOperationWrapper(RedisTemplate<String, String> redisTemplate) {
+        this.redisTemplate = redisTemplate;
+    }
+
+    // string
+    public void addString(String key, String value) {
+        ValueOperations<String, String> stringOperation = redisTemplate.opsForValue();
+        stringOperation.set(key, value);
+        logger.info("redis command for value operation done. add key: {}, value: {}", key, value);
+    }
+
+    public String getString(String key) {
+        ValueOperations<String, String> stringOperation = redisTemplate.opsForValue();
+        return stringOperation.get(key);
+    }
+
+    // list
+    public void addRightList(String key, String value) {
+        ListOperations<String, String> listOperations = redisTemplate.opsForList();
+        listOperations.rightPush(key, value);
+        logger.info("redis command for list operation done. add right key: {}, value: {}", key, value);
+    }
+
+    public void addLeftList(String key, String value) {
+        ListOperations<String, String> listOperations = redisTemplate.opsForList();
+        listOperations.rightPush(key, value);
+        logger.info("redis command for list operation done. add left key: {}, value: {}", key, value);
+    }
+
+    public List<String> getList(String key, long start, long end) {
+        ListOperations<String, String> listOperations = redisTemplate.opsForList();
+        return listOperations.range(key, start, end);
+    }
+
+    // set
+    public void addSet(String key, String... values) {
+        SetOperations<String, String> setOperations = redisTemplate.opsForSet();
+        setOperations.add(key, values);
+        logger.info("redis command for set operation done. add key: {}, value: {}", key, Arrays.toString(values));
+    }
+
+    public Set<String> getSet(String key) {
+        SetOperations<String, String> setOperations = redisTemplate.opsForSet();
+        return setOperations.members(key);
+    }
+
+    // sorted set
+    public void sortedSet(String key, String value, int score) {
+        ZSetOperations<String, String> zSetOperations = redisTemplate.opsForZSet();
+        zSetOperations.add(key, value, score);
+        logger.info("redis command for sorted set operation done. add key: {}, value: {}, score: {}", key, value, score);
+    }
+
+    public Set<String> getSortedSet(String key, long start, long end) {
+        ZSetOperations<String, String> zSetOperations = redisTemplate.opsForZSet();
+        return zSetOperations.range(key, start, end);
+    }
+
+    // hash
+    public void setHash(String key, String hashKey, String value) {
+        HashOperations<String, Object, Object> hashOperations = redisTemplate.opsForHash();
+        hashOperations.put(key, hashKey, value);
+        logger.info("redis command for hash operation done. add key: {}, hashKey: {}, value: {}", key, hashKey, value);
+    }
+
+    public Map<Object, Object> getHash(String key) {
+        HashOperations<String, Object, Object> hashOperations = redisTemplate.opsForHash();
+        return hashOperations.entries(key);
+    }
+}
+```
 
