@@ -268,3 +268,51 @@ public interface TeamRepository extends JpaRepository<T, ID>, JpaSpecificationEx
 
 FetchJoin과 EntityGraph는 공통적으로 '카테시안 곱'이 발생하여 데이터를 중복 조회할 수 있습니다. 여기서 카테시안 곱이란, 두 테이블 사이에 유효 조인 조건을 적지 않을 경우 해당 테이블에 대한 모든 테이터를 결합하여 테이블에 존재하는 행 갯수를 곱한만큼의 결과 값이 반환되는 것입니다.
 
+## EntityGraph 적용하기
+
+저의 예시코드의 경우, Pageable이 적용되어 있습니다. 따라서 EntityGraph를 적용하기로 했습니다. 적용 방법은 간단했습니다.
+
+```java
+@Entity
+@NamedEntityGraph(
+        name = "Post.withTags",
+        attributeNodes = @NamedAttributeNode(value = "postTags", subgraph = "postTags.subgraph"),
+        subgraphs = @NamedSubgraph(name = "postTags.subgraph", attributeNodes = @NamedAttributeNode("tag"))
+)
+public class Post {
+  //....
+}
+```
+
+```java
+public interface PostRepository extends JpaRepository<Post, Long> {
+
+    @EntityGraph(value = "Post.detail", type = EntityGraph.EntityGraphType.LOAD)
+    Page<Post> findAll(Pageable pageable);
+}
+```
+
+이렇게 적용하고, 다시 api를 호출하면, 다음과 같이 join 쿼리 단건으로만 발생하게 됩니다.
+
+```
+// before
+Hibernate: /* <criteria> */ select p1_0.id,p1_0.content,p1_0.title from post p1_0 order by p1_0.id desc limit ?,?
+Hibernate: /* <criteria> */ select count(p1_0.id) from post p1_0
+Hibernate: select pt1_0.post_id,pt1_0.id,pt1_0.tag_id from post_tag pt1_0 where pt1_0.post_id=?
+Hibernate: select t1_0.id,t1_0.name from tag t1_0 where t1_0.id=?
+Hibernate: select t1_0.id,t1_0.name from tag t1_0 where t1_0.id=?
+Hibernate: select t1_0.id,t1_0.name from tag t1_0 where t1_0.id=?
+Hibernate: select pt1_0.post_id,pt1_0.id,pt1_0.tag_id from post_tag pt1_0 where pt1_0.post_id=?
+Hibernate: select pt1_0.post_id,pt1_0.id,pt1_0.tag_id from post_tag pt1_0 where pt1_0.post_id=?
+Hibernate: select pt1_0.post_id,pt1_0.id,pt1_0.tag_id from post_tag pt1_0 where pt1_0.post_id=?
+Hibernate: select pt1_0.post_id,pt1_0.id,pt1_0.tag_id from post_tag pt1_0 where pt1_0.post_id=?
+Hibernate: select pt1_0.post_id,pt1_0.id,pt1_0.tag_id from post_tag pt1_0 where pt1_0.post_id=?
+Hibernate: select pt1_0.post_id,pt1_0.id,pt1_0.tag_id from post_tag pt1_0 where pt1_0.post_id=?
+Hibernate: select pt1_0.post_id,pt1_0.id,pt1_0.tag_id from post_tag pt1_0 where pt1_0.post_id=?
+Hibernate: select pt1_0.post_id,pt1_0.id,pt1_0.tag_id from post_tag pt1_0 where pt1_0.post_id=?
+
+// after
+Hibernate: /* <criteria> */ select p1_0.id,p1_0.content,pt1_0.post_id,pt1_0.id,t1_0.id,t1_0.name,p1_0.title from post p1_0 left join post_tag pt1_0 on p1_0.id=pt1_0.post_id left join tag t1_0 on t1_0.id=pt1_0.tag_id order by p1_0.id desc
+Hibernate: /* <criteria> */ select count(p1_0.id) from post p1_0
+```
+
