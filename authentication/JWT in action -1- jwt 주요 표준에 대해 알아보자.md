@@ -187,3 +187,8 @@ U0m_YmjN04DJvceFICbCVQ
 
 JWT에 대한 내용을 대략적으로 살펴보고 JWT를 만드는 방법을 살펴보았습니다. JWS와 JWE의 경우, 토큰을 만들기위해 필요한 일련의 과정이 있습니다만, 이 과정을 일일이 전부 구현하기에는 난이도가 있으며 토큰의 내용에 따라 보안 이슈도 많이 발생할 수 있습니다. 그래서 개발자들은 검증된 라이브러리를 많이 활용하는데요. Java의 경우는 JJWT 라이브러리가 가장 많이 사용됩니다.
 다음 게시글에서는 JJWT를 활용하여 앞서 설명한 JWT를 어떤 방식으로 구성하는지 알아보겠습니다.
+
+## 출처
+
+- https://datatracker.ietf.org/doc/html/rfc7519#section-4.1
+- https://github.com/jwtk/jjwt
